@@ -45,6 +45,7 @@ function love.load()
 		tile[i] = love.graphics.newImage("tile"..i..".png")
 	end
 	calcApple()
+	math.randomseed( os.time() )
 end
 
 function love.update(dt)
@@ -117,8 +118,6 @@ end
 
 function calcApple()
 	-- Randomize the goal, the other filled in square that give the player points
-		math.randomseed( os.time() )
-		math.random(); math.random(); math.random()
 		repeat
 			apple.grid_x = numRound(math.random(1,196) / 14)
 			apple.grid_y = numRound(math.random(1,169) / 13)
