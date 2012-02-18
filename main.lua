@@ -40,10 +40,37 @@ function love.load()
 		{ 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1 },
 		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
 	}
+
+	-- 
+	-- GRAPHICS SECTION
+	--
+
+	tilemap = { -- This is the map for the graphics.
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		{ 0, 1, 2, 1, 2, 1, 1, 1, 1, 0, 1, 1, 1, 0 },
+		{ 0, 1, 0, 0, 1, 1, 2, 1, 0, 2, 1, 0, 1, 0 },
+		{ 0, 0, 0, 0, 1, 2, 1, 1, 0, 1, 1, 1, 0, 0 },
+		{ 0, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0 },
+		{ 0, 1, 2, 1, 1, 1, 1, 0, 0, 0, 0, 1, 2, 0 },
+		{ 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 2, 1, 1, 0 },
+		{ 0, 0, 1, 2, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0 },
+		{ 0, 0, 1, 1, 1, 2, 1, 1, 2, 0, 0, 0, 0, 0 },
+		{ 0, 0, 1, 2, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0 },
+		{ 0, 2, 1, 1, 2, 1, 2, 1, 1, 2, 1, 0, 0, 0 },
+		{ 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0 },
+		{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	}
+
 	tile = {}
-	for i = 0,1 do
+	for i = 0,3 do
 		tile[i] = love.graphics.newImage("tile"..i..".png")
 	end
+
+
+	-- 
+	-- AUDIO SECTION
+	--
+
 	calcApple()
 	math.randomseed( os.time() )
 end
@@ -61,8 +88,7 @@ function love.draw()
 	drawMap()
 	-- The player is a filled in rectangle.
 	love.graphics.rectangle("fill", player.act_x, player.act_y, 32, 32)
-	love.graphics.setColor( 255, 255, 255, 160)
-	love.graphics.rectangle("fill", apple.pos_x, apple.pos_y, 32, 32)
+	love.graphics.draw(tile[3], apple.pos_x, apple.pos_y)
 	love.graphics.setColor(255, 255, 255, 255)
 	love.graphics.print("Player Score:", 32, 500, 0, 1, 1)
 	love.graphics.print(player.score, 132, 500, 0, 1, 1)
@@ -105,10 +131,12 @@ end
 
 function drawMap()
 	-- We cycle through the map, row by row, column by column, and draw boxes for the walls.
-	for y = 1, #map do
-		for x = 1, #map[y] do
-			if map[y][x] == 1 then
+	for y = 1, #tilemap do
+		for x = 1, #tilemap[y] do
+			if tilemap[y][x] == 1 then
 				love.graphics.draw(tile[1], x * 32, y * 32)
+			elseif tilemap[y][x] == 2 then
+				love.graphics.draw(tile[2], x * 32, y * 32)
 			else
 				love.graphics.draw(tile[0], x * 32, y * 32)
 			end
