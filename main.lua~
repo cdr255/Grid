@@ -123,7 +123,7 @@ function calcApple()
 			apple.grid_y = numRound(math.random(1,169) / 13)
 			apple.pos_x = apple.grid_x * 32
 			apple.pos_y = apple.grid_y * 32
-		until map[apple.grid_y][apple.grid_x] == 0 and apple.pos_x ~= player.grid_x and apple.pos_y ~= player.grid_y
+		until map[apple.grid_y][apple.grid_x] == 0 and apple.pos_x ~= player.grid_x or apple.pos_y ~= player.grid_y
 end
 
 function numRound(number)
